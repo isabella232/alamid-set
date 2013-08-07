@@ -14,17 +14,20 @@ describe("Set", function () {
         function emit() {}
         function on() {}
         function removeListener() {}
+        function removeAllListeners() {}
 
         it("should set the given config", function () {
             Set.configure({
                 emit: emit,
                 on: on,
-                removeListener: removeListener
+                removeListener: removeListener,
+                removeAllListeners: removeAllListeners
             });
 
             expect(Set.prototype.config.emit).to.equal(emit);
             expect(Set.prototype.config.on).to.equal(on);
             expect(Set.prototype.config.removeListener).to.equal(removeListener);
+            expect(Set.prototype.config.removeAllListeners).to.equal(removeAllListeners);
         });
 
     });
@@ -318,6 +321,26 @@ describe("Set", function () {
                     expect(emit).to.not.have.been.called;
                 });
 
+            });
+
+        });
+
+        describe(".dispose()", function () {
+
+            it("should call removeAllListeners() on the set", function () {
+                var removeAllListeners;
+
+                s.config = Object.create(s.config);
+                s.config.removeAllListeners = removeAllListeners = sinon.spy();
+
+                s.dispose();
+
+                expect(removeAllListeners).to.have.been.calledOnce;
+            });
+
+            it("should clear the _elements reference", function () {
+                s.dispose();
+                expect(s._elements).to.not.be.ok;
             });
 
         });

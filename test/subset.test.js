@@ -23,7 +23,8 @@ describe("plugins/nodeEvents", function () {
         Set.configure({
             emit: emitter.emit,
             on: emitter.on,
-            removeListener: emitter.removeListener
+            removeListener: emitter.removeListener,
+            removeAllListeners: emitter.removeAllListeners
         });
     });
 
@@ -129,7 +130,7 @@ describe("plugins/nodeEvents", function () {
 
             });
 
-            describe(".get() / has()", function () {
+            describe(".get() / .has()", function () {
 
                 it("should operate just on the subset", function () {
                     var obj;
@@ -147,6 +148,35 @@ describe("plugins/nodeEvents", function () {
                     delete obj.a;
                     expect(subset.has("a")).to.equal(false);
                     expect(s.has("a")).to.equal(true);
+                });
+
+            });
+
+            describe(".dispose()", function () {
+
+                it("should remove all event listeners on the master set", function () {
+                    var obj;
+
+                    subset = s.subset();
+                    subset.config = Object.create(subset.config);
+                    subset.config.emit = emit = sinon.spy();
+                    obj = subset.toObject();
+
+                    subset.dispose();
+
+                    s.set("d", "D");
+
+                    expect(obj.d).to.equal(undefined);
+                    expect(emit).to.not.have.been.called;
+                });
+
+                it("should also call Set.prototype.dispose()", function () {
+                    var dispose;
+
+                    Set.prototype.dispose = dispose = sinon.spy();
+                    s.subset().dispose();
+
+                    expect(dispose).to.have.been.calledOnce;
                 });
 
             });

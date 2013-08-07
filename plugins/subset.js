@@ -5,7 +5,9 @@ function subset(Set) {
         var master = this,
             obj = {},
             subset = new Set(obj),
-            on = subset.config.on;
+            on = subset.config.on,
+            off = subset.config.removeListener,
+            dispose;
 
         function onMasterAdd(event) {
             var element = event.element,
@@ -28,6 +30,19 @@ function subset(Set) {
         subset.remove = master.remove.bind(master);
         subset.getMaster = function () {
             return master;
+        };
+        dispose = subset.dispose;
+        subset.dispose = function () {
+            off.call(master, "add", onMasterAdd);
+            off.call(master, "remove", onMasterRemove);
+
+            if (dispose) {
+                dispose.call(subset);
+            }
+
+            master = null;
+            subset = null;
+            obj = null;
         };
 
         on.call(master, "add", onMasterAdd);

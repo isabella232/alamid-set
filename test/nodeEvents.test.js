@@ -19,6 +19,7 @@ describe("plugins/nodeEvents", function () {
         expect(s.config.emit).to.equal(emitter.emit);
         expect(s.config.on).to.equal(emitter.on);
         expect(s.config.removeListener).to.equal(emitter.removeListener);
+        expect(s.config.removeAllListeners).to.equal(emitter.removeAllListeners);
     });
 
     it("should enable working with node's EventEmitter", function () {
