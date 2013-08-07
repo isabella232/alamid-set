@@ -17,16 +17,14 @@ describe("Set", function () {
 
         it("should set the given config", function () {
             Set.configure({
-                events: {
-                    emit: emit,
-                    on: on,
-                    removeListener: removeListener
-                }
+                emit: emit,
+                on: on,
+                removeListener: removeListener
             });
 
-            expect(Set.prototype.config.events.emit).to.equal(emit);
-            expect(Set.prototype.config.events.on).to.equal(on);
-            expect(Set.prototype.config.events.removeListener).to.equal(removeListener);
+            expect(Set.prototype.config.emit).to.equal(emit);
+            expect(Set.prototype.config.on).to.equal(on);
+            expect(Set.prototype.config.removeListener).to.equal(removeListener);
         });
 
     });
@@ -55,7 +53,7 @@ describe("Set", function () {
 
         beforeEach(function () {
             s = new Set();
-            Set.prototype.config.events.emit = emit = sinon.spy();
+            Set.prototype.config.emit = emit = sinon.spy();
         });
 
         describe(".config", function () {

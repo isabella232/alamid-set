@@ -4,12 +4,12 @@ var EventEmitter = require("events").EventEmitter,
     proto = EventEmitter.prototype;
 
 function nodeEvents(List) {
-    var events = List.prototype.config.events,
+    var config = List.prototype.config,
         key;
 
-    events.emit = proto.emit;
-    events.on = proto.on;
-    events.removeListener = proto.removeListener;
+    config.emit = proto.emit;
+    config.on = proto.on;
+    config.removeListener = proto.removeListener;
 
     for (key in proto) { /* jshint forin: false */
         List.prototype[key] = proto[key];

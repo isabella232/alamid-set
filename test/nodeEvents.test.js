@@ -18,9 +18,9 @@ describe("plugins/nodeEvents", function () {
         Set.use(nodeEvents);
         list = new Set();
 
-        expect(list.config.events.emit).to.equal(emitter.emit);
-        expect(list.config.events.on).to.equal(emitter.on);
-        expect(list.config.events.removeListener).to.equal(emitter.removeListener);
+        expect(list.config.emit).to.equal(emitter.emit);
+        expect(list.config.on).to.equal(emitter.on);
+        expect(list.config.removeListener).to.equal(emitter.removeListener);
 
         expect(list.on).to.be.a("function");
         expect(list.removeListener).to.be.a("function");
