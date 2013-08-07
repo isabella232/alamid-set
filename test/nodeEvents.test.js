@@ -10,27 +10,32 @@ var chai = require("chai"),
 chai.use(require("sinon-chai"));
 
 describe("plugins/nodeEvents", function () {
-    var list;
+    var s;
+
+    it("should adjust the config", function () {
+        Set.use(nodeEvents);
+        s = new Set();
+
+        expect(s.config.emit).to.equal(emitter.emit);
+        expect(s.config.on).to.equal(emitter.on);
+        expect(s.config.removeListener).to.equal(emitter.removeListener);
+    });
 
     it("should enable working with node's EventEmitter", function () {
         var listener = sinon.spy();
 
         Set.use(nodeEvents);
-        list = new Set();
+        s = new Set();
 
-        expect(list.config.emit).to.equal(emitter.emit);
-        expect(list.config.on).to.equal(emitter.on);
-        expect(list.config.removeListener).to.equal(emitter.removeListener);
+        expect(s.on).to.be.a("function");
+        expect(s.removeListener).to.be.a("function");
 
-        expect(list.on).to.be.a("function");
-        expect(list.removeListener).to.be.a("function");
-
-        list.on("add", listener);
-        list.set("greeting", "hi");
+        s.on("add", listener);
+        s.set("greeting", "hi");
         expect(listener).to.have.been.calledOnce;
 
-        list.removeListener("add", listener);
-        list.set("greeting", "ahoi");
+        s.removeListener("add", listener);
+        s.set("greeting", "ahoi");
         expect(listener).to.have.been.calledOnce;
     });
 

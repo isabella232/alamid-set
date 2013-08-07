@@ -5,6 +5,7 @@ var EventEmitter = require("events").EventEmitter,
 
 function nodeEvents(List) {
     var config = List.prototype.config,
+        constructor = List.prototype.constructor,
         key;
 
     config.emit = proto.emit;
@@ -14,6 +15,11 @@ function nodeEvents(List) {
     for (key in proto) { /* jshint forin: false */
         List.prototype[key] = proto[key];
     }
+
+    List.prototype.constructor = function () {
+        EventEmitter.call(this);
+        constructor.apply(this, arguments);
+    };
 }
 
 module.exports = nodeEvents;
