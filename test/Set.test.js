@@ -33,13 +33,26 @@ describe("Set", function () {
     });
 
     describe(".use()", function () {
+        var plugin,
+            config;
 
-        it("should provide an plugin-interface", function () {
-            var plugin = sinon.spy();
+        beforeEach(function () {
+            plugin = sinon.spy();
+            config = {};
+        });
 
-            Set.use(plugin);
-            expect(plugin).to.have.been.calledWith(Set);
-            expect(Set.use(plugin)).to.equal(Set);
+        it("should provide a plugin-interface", function () {
+            Set.use(plugin, config);
+            expect(plugin).to.have.been.calledWith(Set, config);
+        });
+
+        it("should be usable on other objects too", function () {
+            var otherObj = {
+                use: Set.use
+            };
+
+            otherObj.use(plugin);
+            expect(plugin).to.have.been.calledWith(otherObj);
         });
 
         it("should be chainable", function () {
