@@ -67,7 +67,7 @@ describe("plugins/nodeEvents", function () {
                 expect(emit.firstCall).to.have.been.calledWith("add");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "add",
+                    type: "add",
                     target: subset,
                     key: "d",
                     element: "D"
@@ -77,7 +77,7 @@ describe("plugins/nodeEvents", function () {
                 expect(emit.secondCall).to.have.been.calledWith("remove");
                 event = emit.secondCall.args[1];
                 expect(event).to.eql({
-                    name: "remove",
+                    type: "remove",
                     target: subset,
                     key: "c",
                     element: "C"
@@ -86,7 +86,7 @@ describe("plugins/nodeEvents", function () {
                 expect(emit.thirdCall).to.have.been.calledWith("add");
                 event = emit.thirdCall.args[1];
                 expect(event).to.eql({
-                    name: "add",
+                    type: "add",
                     target: subset,
                     key: "c",
                     element: "C"
@@ -239,7 +239,7 @@ describe("plugins/nodeEvents", function () {
                     expect(emit.firstCall).to.have.been.calledWith("remove");
                     event = emit.firstCall.args[1];
                     expect(event).to.eql({
-                        name: "remove",
+                        type: "remove",
                         target: subset,
                         key: "d",
                         element: 4
@@ -248,7 +248,7 @@ describe("plugins/nodeEvents", function () {
                     expect(emit.secondCall).to.have.been.calledWith("add");
                     event = emit.secondCall.args[1];
                     expect(event).to.eql({
-                        name: "add",
+                        type: "add",
                         target: subset,
                         key: "d",
                         element: 4

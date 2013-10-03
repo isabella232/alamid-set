@@ -154,7 +154,7 @@ describe("Set", function () {
                 expect(emit.firstCall).to.have.been.calledWith("add");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "add",
+                    type: "add",
                     target: s,
                     key: "greeting",
                     element: "hi"
@@ -176,7 +176,7 @@ describe("Set", function () {
                     expect(emit.firstCall).to.have.been.calledWith("remove");
                     event = emit.firstCall.args[1];
                     expect(event).to.eql({
-                        name: "remove",
+                        type: "remove",
                         target: s,
                         key: "greeting",
                         element: "ahoi"
@@ -185,7 +185,7 @@ describe("Set", function () {
                     expect(emit.secondCall).to.have.been.calledWith("add");
                     event = emit.secondCall.args[1];
                     expect(event).to.eql({
-                        name: "add",
+                        type: "add",
                         target: s,
                         key: "greeting",
                         element: "hi"
@@ -326,7 +326,7 @@ describe("Set", function () {
                 expect(emit.firstCall).to.have.been.calledWith("remove");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "remove",
+                    type: "remove",
                     target: s,
                     element: "hi",
                     key: "greeting"
