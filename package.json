@@ -1,6 +1,6 @@
 {
     "name": "alamid-set",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "description": "Simple observable key-value store",
     "main": "./lib/Set.js",
     "scripts": {
@@ -34,7 +34,7 @@
         "harness" : "mocha",
         "files": "test/*.js",
         "browsers": {
-            "iexplore": [7, 8, 9, 10],
+            "iexplore": [9, 10],
             "chrome": [20, 25, "canary"],
             "firefox": [20, 22, "nightly"],
             "safari": [5, 6],
