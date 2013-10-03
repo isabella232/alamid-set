@@ -46,6 +46,12 @@ describe("Set", function () {
             expect(plugin).to.have.been.calledWith(Set, config);
         });
 
+        it("should apply the same plugin only once", function () {
+            Set.use(plugin, config);
+            Set.use(plugin, config);
+            expect(plugin).to.have.been.calledOnce;
+        });
+
         it("should be usable on other objects too", function () {
             var otherObj = {
                 use: Set.use
